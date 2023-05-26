@@ -2,28 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-// const passport = require("passport");
 
 if (process.env.NODE_ENV !== "production") {
 	// Load environment variables from .env file in non prod environments
 	require("dotenv").config();
 }
-// require("./utils/connectdb");
-
-require("./strategies/JwtStrategy");
-require("./strategies/LocalStrategy");
-// require("./authenticate");
 
 //add new connection
 const dbo = require("./utils/newConnection");
 
-// const userRouter = require("./routes/userRoutes");
-// const cartsRouter = require("./routes/cartsRoutes");
-
 const shopRouter = require("./routes/shopRoutes");
 const goodsRouter = require("./routes/goodsRoutes");
-
-
 
 const app = express();
 
@@ -50,13 +39,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// app.use(passport.initialize());
-
-// app.use(express.static('public'));
-// app.use('/images', express.static('images'));  //http://localhost:8081/images/615050.png
-
-// app.use("/users", userRouter);
-
 app.use("/shops", shopRouter);
 app.use("/goods", goodsRouter);
 
@@ -65,14 +47,6 @@ app.use("/goods", goodsRouter);
 app.get("/", function (req, res) {
 	res.send({ status: "success" });
 });
-
-//Start the server in port 8081
-
-// const server = app.listen(process.env.PORT || 8081, function () {
-// 	const port = server.address().port;
-
-// 	console.log("App started at port:", port);
-// });
 dbo.connectToServer(function (err) {
 	if (err) {
 		console.error(err);
