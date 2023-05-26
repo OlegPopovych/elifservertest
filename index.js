@@ -17,8 +17,13 @@ require("./authenticate");
 //add new connection
 const dbo = require("./utils/newConnection");
 
-const userRouter = require("./routes/userRoutes");
-const carRouter = require("./routes/carRoutes");
+// const userRouter = require("./routes/userRoutes");
+// const cartsRouter = require("./routes/cartsRoutes");
+
+const shopRouter = require("./routes/shopRoutes");
+const goodsRouter = require("./routes/goodsRoutes");
+
+
 
 const app = express();
 
@@ -50,8 +55,12 @@ app.use(passport.initialize());
 app.use(express.static('public'));
 app.use('/images', express.static('images'));  //http://localhost:8081/images/615050.png
 
-app.use("/users", userRouter);
-app.use("/cars", carRouter);
+// app.use("/users", userRouter);
+
+app.use("/shops", shopRouter);
+app.use("/goods", goodsRouter);
+
+// app.use("/diagnostic", cartsRouter);
 
 app.get("/", function (req, res) {
 	res.send({ status: "success" });

@@ -14,7 +14,7 @@ module.exports = {
 				return callback(err);
 			}
 
-			dbConnection = db.db('pass_test');
+			dbConnection = db.db('elif_db_test');
 			console.log('Successfully connected to MongoDB.');
 
 			return callback();
