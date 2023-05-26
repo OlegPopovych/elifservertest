@@ -2,17 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const passport = require("passport");
+// const passport = require("passport");
 
 if (process.env.NODE_ENV !== "production") {
 	// Load environment variables from .env file in non prod environments
 	require("dotenv").config();
 }
-require("./utils/connectdb");
+// require("./utils/connectdb");
 
 require("./strategies/JwtStrategy");
 require("./strategies/LocalStrategy");
-require("./authenticate");
+// require("./authenticate");
 
 //add new connection
 const dbo = require("./utils/newConnection");
@@ -50,10 +50,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.use(express.static('public'));
-app.use('/images', express.static('images'));  //http://localhost:8081/images/615050.png
+// app.use(express.static('public'));
+// app.use('/images', express.static('images'));  //http://localhost:8081/images/615050.png
 
 // app.use("/users", userRouter);
 
