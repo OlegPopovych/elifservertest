@@ -16,6 +16,9 @@ const goodsRouter = require("./routes/goodsRoutes");
 
 const app = express();
 
+app.use(express.static('public'));
+app.use('/images', express.static('images'));  //http://localhost:8081/images/0000000.png
+
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -42,7 +45,6 @@ app.use(cors(corsOptions));
 app.use("/shops", shopRouter);
 app.use("/goods", goodsRouter);
 
-// app.use("/diagnostic", cartsRouter);
 
 app.get("/", function (req, res) {
 	res.send({ status: "success" });

@@ -12,6 +12,7 @@ routerGoods.post("/neworder", (req, res, next) => {
 		phone: req.body.phone,
 		address: req.body.address,
 		shopList: req.body.shopList,
+		total: req.body.total,
 		create_date: new Date()
 	};
 
@@ -21,7 +22,6 @@ routerGoods.post("/neworder", (req, res, next) => {
 			if (err) {
 				res.status(400).send('Error inserting matches!');
 			} else {
-				console.log(`Added a new match with id ${result.insertedId}`);
 				res.status(204).send();
 			}
 		});
@@ -29,7 +29,6 @@ routerGoods.post("/neworder", (req, res, next) => {
 
 routerGoods.get("/getgoods/:shop", (req, res, next) => {
 	const dbConnect = dbo.getDb();
-	console.log(req.params.shop);
 
 	dbConnect
 		.collection(req.params.shop)
@@ -39,7 +38,22 @@ routerGoods.get("/getgoods/:shop", (req, res, next) => {
 			if (err) {
 				res.status(400).send('Error fetching listings!');
 			} else {
-				console.log(result);
+				res.json(result);
+			}
+		});
+});
+
+routerGoods.get("/getorders", (req, res, next) => {
+	const dbConnect = dbo.getDb();
+
+	dbConnect
+		.collection("orders")
+		.find({})
+		.limit(50)
+		.toArray(function (err, result) {
+			if (err) {
+				res.status(400).send('Error fetching listings!');
+			} else {
 				res.json(result);
 			}
 		});
